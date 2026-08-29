@@ -1,0 +1,96 @@
+/* ============================================================================
+   PLATES — the console's one button vocabulary (shared layer, refinement R4).
+   Every action button on every styled screen is the same small machined plate:
+   transparent ground, hairline bezel, bone-dim placard caps; the primary is
+   the one filled plate (bone on charcoal, the room's energized state); the
+   destruct variant reserves the LOSS lamp's red for the control that
+   destroys. DESIGN.md builds this component once and spends it on all five
+   phases — so the rules live here, in the first-imported sheet, where every
+   screen (archive, outcome, setup) consumes them without depending on
+   another screen's stylesheet. The critique's cross-sheet `.plate` seam
+   (definition in archive.css, consumption by outcome + setup) is closed by
+   this move; the cascade is unchanged — the shared layer now plays the exact
+   position archive.css used to play for setup.css (earliest = weakest at
+   equal specificity, so per-screen refinements keep winning).
+   Consumes tokens.css only. Focus rings stay per-screen (scoped
+   button:focus-visible rules) drawing var(--focus-width)/var(--focus-color).
+   ============================================================================ */
+
+.plate {
+  appearance: none;
+  border: var(--hairline) solid var(--line);
+  background: transparent;
+  color: var(--bone-dim);
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  font-weight: 400;
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  border-radius: var(--radius-1);
+  padding: var(--sp-2) var(--sp-3);
+  cursor: pointer;
+  transition:
+    color var(--dur-state) var(--ease-damped),
+    border-color var(--dur-state) var(--ease-damped),
+    background-color var(--dur-state) var(--ease-damped);
+}
+
+.plate:hover {
+  color: var(--bone);
+  border-color: var(--line-strong);
+}
+
+.plate:active {
+  transform: translateY(1px);
+}
+
+.plate:disabled {
+  color: var(--bone-faint);
+  border-color: var(--line);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.plate-primary {
+  background: var(--bone);
+  border-color: var(--bone);
+  color: var(--ground);
+}
+
+.plate-primary:hover {
+  background: color-mix(in srgb, var(--bone) 88%, var(--ground));
+  border-color: color-mix(in srgb, var(--bone) 88%, var(--ground));
+  color: var(--ground);
+}
+
+/* Transient COPY outcome: lamp semantics — green nominal, amber fault/hold. */
+.plate[data-state='copied'] {
+  color: var(--lamp-green);
+  border-color: color-mix(in srgb, var(--lamp-green) 45%, transparent);
+}
+
+.plate[data-state='failed'] {
+  color: var(--lamp-amber);
+  border-color: color-mix(in srgb, var(--lamp-amber) 45%, transparent);
+}
+
+/* The destruct lamp color is reserved for the control that destructs. */
+.plate-destruct {
+  color: var(--lamp-red);
+  border-color: color-mix(in srgb, var(--lamp-red) 45%, transparent);
+}
+
+.plate-destruct:hover {
+  color: var(--lamp-red);
+  border-color: var(--lamp-red);
+}
+
+/* -- phones: plates tighten (the component's own responsive definition) -------
+   Moved with the component so the ≤40rem tightening reaches every screen's
+   plates, not only those the archive sheet happened to style. */
+
+@media (max-width: 40rem) {
+  .plate {
+    padding: var(--sp-1) var(--sp-2);
+  }
+}

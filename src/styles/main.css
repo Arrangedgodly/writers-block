@@ -1,0 +1,91 @@
+/* The Countdown Room — main.css.
+   T8 wires the token layer in; screens (T9–T11) build their surfaces on
+   these tokens. This file owns only document-level ground: the room's
+   fixed charcoal, bone text, the prose voice, and the grain overlay. The
+   shared console furniture that every screen spends (the plate controls,
+   refinement R4; the .vh rule below) lives in its own first-imported
+   sheet (plates.css) or here beside .vh — never inside one screen's sheet,
+   so no screen's markup depends on another screen's stylesheet. */
+
+@import './tokens.css';
+/* The shared plate component (refinement R4) imports FIRST among the sheets:
+   every screen's markup spends .plate/.plate-primary/.plate-destruct, so the
+   vocabulary lives in its own layer before any screen — no screen depends on
+   another screen's stylesheet (the same principle as the .vh rule below),
+   and per-screen refinements (e.g. setup.css's .setup-arm-trigger sizing)
+   keep winning the cascade exactly as they did before the move. */
+@import './plates.css';
+/* Screen surfaces consume tokens through their own sheets (T9 — write,
+   T10 — outcome boards, T11 — archive, R1 — setup). */
+@import './write.css';
+@import './outcome.css';
+@import './archive.css';
+@import './setup.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+/* Dark UA surfaces (form controls, scrollbars) follow the room, not the OS. */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--ground);
+  color: var(--bone);
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  font-weight: var(--weight-prose);
+  line-height: var(--prose-leading);
+  /* The ground never repaints; threat rides as overlay. */
+  caret-color: var(--bone);
+}
+
+/* Browser surfaces belong to the room: selection is bone-on-ground —
+   inversion, not a lamp. Lamps mean state and never decorate. */
+::selection {
+  background: var(--bone);
+  color: var(--ground);
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* Visually hidden — SR-only text, shared by every screen (T12): the
+   persistent state-announcement live regions, the per-phase h1s, and the
+   surface-local status regions. Screen sheets may restate it scoped; this is
+   the document-level definition so no screen depends on another's sheet. */
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Panel grain: one fixed, pointer-transparent overlay across the room.
+   Kills flat-black banding on large charcoal fields (brief §3). Static
+   texture — carries no motion, so it survives reduced-motion untouched. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  background-image: var(--grain-tile);
+  background-repeat: repeat;
+  opacity: var(--grain-strength);
+  pointer-events: none;
+}

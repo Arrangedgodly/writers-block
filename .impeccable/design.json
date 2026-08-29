@@ -1,0 +1,449 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-29T12:06:29Z",
+  "title": "Design System: The Disappearing Draft",
+  "extensions": {
+    "colorMeta": {
+      "console-charcoal": {
+        "role": "neutral",
+        "displayName": "Console Charcoal",
+        "canonical": "#14161a",
+        "cssToken": "--ground",
+        "purpose": "The room's fixed ground; never repaints. Also paints the browser chrome via the committed theme-color.",
+        "tonalRamp": [
+          "oklch(15% 0.012 255)",
+          "oklch(26% 0.012 255)",
+          "oklch(38% 0.012 255)",
+          "oklch(49% 0.012 255)",
+          "oklch(61% 0.012 255)",
+          "oklch(72% 0.012 255)",
+          "oklch(84% 0.012 255)",
+          "oklch(95% 0.012 255)"
+        ]
+      },
+      "bezel-plate": {
+        "role": "neutral",
+        "displayName": "Bezel Plate",
+        "canonical": "#1a1d23",
+        "cssToken": "--panel-raised",
+        "purpose": "Raised panels one step above ground: boards, instrument beds, nameplate, caution panels, the favicon's bezel.",
+        "tonalRamp": [
+          "oklch(17% 0.014 255)",
+          "oklch(28% 0.014 255)",
+          "oklch(39% 0.014 255)",
+          "oklch(50% 0.014 255)",
+          "oklch(62% 0.014 255)",
+          "oklch(73% 0.014 255)",
+          "oklch(85% 0.014 255)",
+          "oklch(95% 0.014 255)"
+        ]
+      },
+      "recessed-well": {
+        "role": "neutral",
+        "displayName": "Recessed Well",
+        "canonical": "#0e1013",
+        "cssToken": "--panel-inset",
+        "purpose": "Inset beds: flap digit wells, the SIGNAL LOST bed, the archive full-draft well, the favicon's digit well.",
+        "tonalRamp": [
+          "oklch(13% 0.010 255)",
+          "oklch(24% 0.010 255)",
+          "oklch(36% 0.010 255)",
+          "oklch(47% 0.010 255)",
+          "oklch(59% 0.010 255)",
+          "oklch(70% 0.010 255)",
+          "oklch(82% 0.010 255)",
+          "oklch(94% 0.010 255)"
+        ]
+      },
+      "luminous-bone": {
+        "role": "primary",
+        "displayName": "Luminous Bone",
+        "canonical": "#e8e4d8",
+        "cssToken": "--bone",
+        "purpose": "The readout color: primary text, lit board digits, the primary plate fill; selection inverts bone-on-ground.",
+        "tonalRamp": [
+          "oklch(15% 0.017 95)",
+          "oklch(26% 0.017 95)",
+          "oklch(38% 0.017 95)",
+          "oklch(49% 0.017 95)",
+          "oklch(61% 0.017 95)",
+          "oklch(72% 0.017 95)",
+          "oklch(83% 0.017 95)",
+          "oklch(94% 0.017 95)"
+        ]
+      },
+      "bone-dim": {
+        "role": "neutral",
+        "displayName": "Bone-dim",
+        "canonical": "color-mix(in srgb, var(--bone) 58%, var(--ground))",
+        "resolvedHex": "#8f8d88",
+        "cssToken": "--bone-dim",
+        "purpose": "Secondary text (labels, status, meta, excerpts, plate text). >=4.5:1 on ground."
+      },
+      "bone-faint": {
+        "role": "neutral",
+        "displayName": "Bone-faint",
+        "canonical": "color-mix(in srgb, var(--bone) 34%, var(--ground))",
+        "resolvedHex": "#5c5c5b",
+        "cssToken": "--bone-faint",
+        "purpose": "Annotations and disabled affordances ONLY (~3:1) — never body text."
+      },
+      "phosphor-green": {
+        "role": "primary",
+        "displayName": "Phosphor Green",
+        "canonical": "#3fe06f",
+        "cssToken": "--lamp-green (focus reuses it as --focus-color)",
+        "purpose": "LIVE / SAFE / nominal lamp; the one sanctioned non-lamp green is keyboard focus.",
+        "tonalRamp": [
+          "oklch(15% 0.22 148)",
+          "oklch(26% 0.22 148)",
+          "oklch(38% 0.22 148)",
+          "oklch(49% 0.22 148)",
+          "oklch(61% 0.22 148)",
+          "oklch(72% 0.22 148)",
+          "oklch(84% 0.22 148)",
+          "oklch(95% 0.22 148)"
+        ]
+      },
+      "caution-amber": {
+        "role": "secondary",
+        "displayName": "Caution Amber",
+        "canonical": "#ffb000",
+        "cssToken": "--lamp-amber",
+        "purpose": "The FADE / hold lamp and the whole caution band — warning before loss, never terminal.",
+        "tonalRamp": [
+          "oklch(15% 0.18 70)",
+          "oklch(26% 0.18 70)",
+          "oklch(38% 0.18 70)",
+          "oklch(49% 0.18 70)",
+          "oklch(61% 0.18 70)",
+          "oklch(72% 0.18 70)",
+          "oklch(84% 0.18 70)",
+          "oklch(95% 0.18 70)"
+        ]
+      },
+      "destruct-red": {
+        "role": "secondary",
+        "displayName": "Destruct Red",
+        "canonical": "#ff4a3d",
+        "cssToken": "--lamp-red",
+        "purpose": "LOSS lamp, SIGNAL LOST readout, CONFIRM CLEAR / armed CONFIRM DELETE. Terminal, once, never decorative.",
+        "tonalRamp": [
+          "oklch(15% 0.23 25)",
+          "oklch(26% 0.23 25)",
+          "oklch(38% 0.23 25)",
+          "oklch(49% 0.23 25)",
+          "oklch(61% 0.23 25)",
+          "oklch(72% 0.23 25)",
+          "oklch(84% 0.23 25)",
+          "oklch(95% 0.23 25)"
+        ]
+      },
+      "green-unlit": {
+        "role": "neutral",
+        "displayName": "Green Unlit Glass",
+        "canonical": "color-mix(in srgb, var(--lamp-green) 26%, var(--panel-inset))",
+        "resolvedHex": "#1b462b",
+        "cssToken": "--lamp-green-dim",
+        "purpose": "The LIVE lamp off — dark tinted glass, still present."
+      },
+      "amber-unlit": {
+        "role": "neutral",
+        "displayName": "Amber Unlit Glass",
+        "canonical": "color-mix(in srgb, var(--lamp-amber) 26%, var(--panel-inset))",
+        "resolvedHex": "#4d3a0e",
+        "cssToken": "--lamp-amber-dim",
+        "purpose": "The FADE lamp off."
+      },
+      "red-unlit": {
+        "role": "neutral",
+        "displayName": "Red Unlit Glass",
+        "canonical": "color-mix(in srgb, var(--lamp-red) 26%, var(--panel-inset))",
+        "resolvedHex": "#4d1f1e",
+        "cssToken": "--lamp-red-dim",
+        "purpose": "The LOSS lamp off."
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "color-mix(in srgb, var(--bone) 16%, transparent)",
+        "resolvedHex": "rgba(232,228,216,0.16)",
+        "cssToken": "--line",
+        "purpose": "Bezel lines over any surface; 1px line weight (--hairline)."
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "color-mix(in srgb, var(--bone) 32%, transparent)",
+        "resolvedHex": "rgba(232,228,216,0.32)",
+        "cssToken": "--line-strong",
+        "purpose": "Plate-hover bezel brightening."
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Flap Board",
+        "purpose": "The presiding T-MM:SS countdown (and the setup console's duration board on the same classes), top-center. B612 Mono 700, tabular; minute-slot count fixed (zero layout shift)."
+      },
+      "instrument": {
+        "displayName": "SIGNAL LOST Readout",
+        "purpose": "DSEG14 Classic, this board only, display size capped to hold one line from phones up. B612 Mono fallback."
+      },
+      "title": {
+        "displayName": "Placard Title",
+        "purpose": "Screen verdicts and binder identity (DOWN SAFE - THREAT DISARMED, FLIGHT LOG). 13px Michroma caps."
+      },
+      "label": {
+        "displayName": "Status Placard",
+        "purpose": "Status line (FADING - type to restore), confirm titles, verdicts, the setup validation line. 11px Michroma caps."
+      },
+      "label-sm": {
+        "displayName": "Engraved Legend",
+        "purpose": "Lamp names, stat labels, column strips, plate controls, notes/counts, placard limits. 10px Michroma caps."
+      },
+      "numeric": {
+        "displayName": "Avionics Numeric",
+        "purpose": "Every live number that is not the board: stat values, countdown numerals, the custom-minutes well. 14px B612 Mono tabular."
+      },
+      "numeric-sm": {
+        "displayName": "Avionics Numeric Small",
+        "purpose": "Timestamps, word counts, log meta. 12px."
+      },
+      "numeric-lg": {
+        "displayName": "Run Time",
+        "purpose": "Run times flush right (log spine, RUN stat, entry rows), the reduced-motion deletion countdown, and the placard duration values. 19px."
+      },
+      "body": {
+        "displayName": "Console Prose",
+        "purpose": "Prose outside the editor: excerpts, outcome copy, notes, the setup intro. Countdown Room Prose 18px/1.65."
+      },
+      "body-editor": {
+        "displayName": "Draft Prose",
+        "purpose": "The draft itself in the textarea: 19px/1.65 dark-ground size, 70ch measure. Weight 400 regular, 600 strong (log titles)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "panel-edge",
+        "value": "inset 0 0 0 1px var(--line)",
+        "purpose": "The one sanctioned box-shadow: a zero-blur 1px inset bezel hairline on raised plates and wells, where a border would double the line."
+      },
+      {
+        "name": "lamp-glow",
+        "value": "0 0 10px 2px color-mix(in srgb, <lamp-color> 50%, transparent)",
+        "purpose": "A lit lamp dome's halo. Capability layer: no-preference motion only, absent under reduce."
+      },
+      {
+        "name": "board-halo",
+        "value": "text-shadow: 0 0 18px color-mix(in srgb, var(--bone) 18%, transparent)",
+        "purpose": "Luminous board figures in a dim room. No-preference motion only."
+      },
+      {
+        "name": "readout-halo",
+        "value": "text-shadow: 0 0 18px color-mix(in srgb, var(--lamp-red) 26%, transparent)",
+        "purpose": "The SIGNAL LOST red halo. No-preference motion only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-damped",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "State changes, boards, reveals, the cover lift. The room's default easing: exponential ease-out from an already-visible default."
+      },
+      {
+        "name": "ease-flap",
+        "value": "cubic-bezier(0.22, 0.9, 0.18, 1)",
+        "purpose": "The digit flip only."
+      },
+      {
+        "name": "dur-flap",
+        "value": "300ms",
+        "purpose": "One split-flap digit turning (transform-only, compositor-side). JS twin: FLIP_SETTLE_MS = 300."
+      },
+      {
+        "name": "dur-board",
+        "value": "480ms",
+        "purpose": "Whole-board settling: the wind-down tape flip and the archive well/grid reveals."
+      },
+      {
+        "name": "dur-state",
+        "value": "180ms",
+        "purpose": "Lamp and state indications (plate color/bezel, status, band)."
+      },
+      {
+        "name": "dur-arm",
+        "value": "260ms",
+        "purpose": "The one guarded arm gesture: the MASTER ARM cover's hinge lift on the setup console — the gesture the token was minted for, spent on the cover's transform. Collapses to 0.01ms under reduced motion; the state change itself stays."
+      },
+      {
+        "name": "loss-latch",
+        "value": "animation: loss-latch 1.4s steps(1, end) 1",
+        "purpose": "The LOSS annunciator latching a fault: three hard on/off switches then steady lit. Lamps switch, never fade. No-preference motion only."
+      },
+      {
+        "name": "reduced-motion-collapse",
+        "value": "--motion-level: reduced; --dur-flap/board/state/arm: 0.01ms",
+        "purpose": "Capability switch: durations collapse so transitioned surfaces hold still; --motion-level is the committed JS seam (getComputedStyle). The threat fade is deliberately UNTOKENIZED - opacity is computed per frame from wall-clock by the engine and applied directly, full-motion only."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "40rem",
+        "purpose": "The only breakpoint: the console stacks by criticality (board, lamps, column); the archive collapses to spine-style rows; placards tighten and wrap; board scale is viewport-clamped everywhere else."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Plate (control)",
+      "kind": "button",
+      "refersTo": "plate",
+      "description": "Every action on every phase — defined once in the shared plates.css layer imported before any screen sheet: transparent ground, hairline bezel, placard caps; brightens on hover, presses 1px on active. Transient COPY states wear lamp colors (COPIED green / COPY FAILED amber, 2.4s).",
+      "html": "<button class=\"ds-plate\">COPY</button>",
+      "css": ".ds-plate { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--bone-dim); font-family: var(--font-placard); font-size: 10px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 180ms cubic-bezier(0.16,1,0.3,1), border-color 180ms cubic-bezier(0.16,1,0.3,1), background-color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-plate:hover { color: var(--bone); border-color: var(--line-strong); } .ds-plate:active { transform: translateY(1px); } .ds-plate:focus-visible { outline: var(--focus-width) solid var(--focus-color); outline-offset: 2px; } .ds-plate:disabled { color: var(--bone-faint); border-color: var(--line); cursor: not-allowed; transform: none; }"
+    },
+    {
+      "name": "Primary Plate",
+      "kind": "button",
+      "refersTo": "plate-primary",
+      "description": "The room's one energized control (ARM, RE-ARM, DONE, NEW SESSION): bone fill on charcoal, flush right where the run time lives. RE-ARM prints the recalled calibration on its face (one-motion restart; a min() scoped to the deleted board caps its 27-char worst case at the 320px floor); DONE holds KEYBOARD activation for one beat after disarm while pointer clicks always pass.",
+      "html": "<button class=\"ds-plate-primary\">RE-ARM</button>",
+      "css": ".ds-plate-primary { appearance: none; border: 1px solid var(--bone); background: var(--bone); color: var(--ground); font-family: var(--font-placard); font-size: 10px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: background-color 180ms cubic-bezier(0.16,1,0.3,1), border-color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-plate-primary:hover { background: color-mix(in srgb, var(--bone) 88%, var(--ground)); border-color: color-mix(in srgb, var(--bone) 88%, var(--ground)); } .ds-plate-primary:active { transform: translateY(1px); } .ds-plate-primary:focus-visible { outline: var(--focus-width) solid var(--focus-color); outline-offset: 2px; }"
+    },
+    {
+      "name": "Destruct Plate",
+      "kind": "button",
+      "refersTo": "plate-destruct",
+      "description": "The control that destructs: CONFIRM CLEAR (multi-entry clear-all) and the armed second step CONFIRM DELETE of the two-step single-entry delete. Destruct red reserved for the control that destructs.",
+      "html": "<button class=\"ds-plate-destruct\">CONFIRM DELETE</button>",
+      "css": ".ds-plate-destruct { appearance: none; border: 1px solid color-mix(in srgb, var(--lamp-red) 45%, transparent); background: transparent; color: var(--lamp-red); font-family: var(--font-placard); font-size: 10px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 180ms cubic-bezier(0.16,1,0.3,1), border-color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-plate-destruct:hover { color: var(--lamp-red); border-color: var(--lamp-red); } .ds-plate-destruct:focus-visible { outline: var(--focus-width) solid var(--focus-color); outline-offset: 2px; }"
+    },
+    {
+      "name": "Range-Safety Lamps",
+      "kind": "custom",
+      "refersTo": "lamp-dome",
+      "description": "Annunciator pair: a lit dome plus an unlit dome under engraved Michroma legends. Unlit lamps stay present as dark tinted glass; the lit dome glows under no-preference motion only.",
+      "html": "<div class=\"ds-lamps\"><span class=\"ds-lamp\"><span class=\"ds-lamp-dome ds-lamp-live\"></span><span class=\"ds-lamp-name\">LIVE</span></span><span class=\"ds-lamp\"><span class=\"ds-lamp-dome ds-lamp-fade-off\"></span><span class=\"ds-lamp-name\">FADE</span></span></div>",
+      "css": ".ds-lamps { display: flex; align-items: center; gap: 24px; } .ds-lamp { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; } .ds-lamp-dome { width: 10px; height: 10px; border-radius: 999px; transition: background-color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-lamp-live { background: var(--lamp-green); } .ds-lamp-fade-off { background: var(--lamp-amber-dim); } .ds-lamp-name { font-family: var(--font-placard); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone-dim); } @media (prefers-reduced-motion: no-preference) { .ds-lamp-live { box-shadow: 0 0 10px 2px color-mix(in srgb, var(--lamp-green) 50%, transparent); } }"
+    },
+    {
+      "name": "Flap Board (static wells)",
+      "kind": "custom",
+      "refersTo": "flap-board",
+      "description": "The presiding countdown: raised bezel plate, recessed 1ch x 1em digit wells with the hinge seam across each middle, T- prefix engraved alongside. Live digits flip transform-only (300ms, ease-flap); this static rendering is also the reduced-motion and no-preserve-3d path. The setup console's duration board is the same instrument on the same classes.",
+      "html": "<div class=\"ds-flap-board\"><span class=\"ds-flap-prefix\">T–</span><span class=\"ds-flap-slot\"><span class=\"ds-flap-half\"><span class=\"ds-flap-glyph\">0</span></span><span class=\"ds-flap-half ds-flap-half-bottom\"><span class=\"ds-flap-glyph\">0</span></span></span><span class=\"ds-flap-slot\"><span class=\"ds-flap-half\"><span class=\"ds-flap-glyph\">5</span></span><span class=\"ds-flap-half ds-flap-half-bottom\"><span class=\"ds-flap-glyph\">5</span></span></span><span class=\"ds-flap-colon\">:</span><span class=\"ds-flap-slot\"><span class=\"ds-flap-half\"><span class=\"ds-flap-glyph\">0</span></span><span class=\"ds-flap-half ds-flap-half-bottom\"><span class=\"ds-flap-glyph\">0</span></span></span><span class=\"ds-flap-slot\"><span class=\"ds-flap-half\"><span class=\"ds-flap-glyph\">0</span></span><span class=\"ds-flap-half ds-flap-half-bottom\"><span class=\"ds-flap-glyph\">0</span></span></span></div>",
+      "css": ".ds-flap-board { display: inline-flex; align-items: center; gap: 3px; font-family: var(--font-numeric); font-size: 44px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--bone); background: var(--panel-raised); box-shadow: inset 0 0 0 1px var(--line); border-radius: 4px; padding: 12px 16px; line-height: 1; } .ds-flap-prefix { font-size: 0.32em; font-weight: 400; color: var(--bone-dim); margin-right: 4px; white-space: nowrap; } .ds-flap-colon { line-height: 1; } .ds-flap-slot { position: relative; width: 1ch; height: 1em; background: var(--panel-inset); box-shadow: inset 0 0 0 1px var(--line); border-radius: 2px; } .ds-flap-slot::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; margin-top: -0.5px; background: var(--ground); } .ds-flap-half { position: absolute; inset-inline: 0; top: 0; height: 50%; overflow: hidden; } .ds-flap-half-bottom { top: auto; bottom: 0; } .ds-flap-glyph { position: absolute; left: 0; width: 100%; height: 200%; line-height: 1; text-align: center; display: block; } .ds-flap-half-bottom .ds-flap-glyph { top: auto; bottom: 0; } @media (prefers-reduced-motion: no-preference) { .ds-flap-board { text-shadow: 0 0 18px color-mix(in srgb, var(--bone) 18%, transparent); } }"
+    },
+    {
+      "name": "SIGNAL LOST Readout",
+      "kind": "custom",
+      "refersTo": "instrument",
+      "description": "The destruct annunciator's instrument face: DSEG14 Classic on a recessed bed with an inset lip, red at display size (capped to hold one line from phones up). The reserved instrument face - this board alone, never the flap board. Flanked by RE-ARM (carrying the recalled calibration) and RECONFIGURE.",
+      "html": "<div class=\"ds-readout\">SIGNAL LOST</div>",
+      "css": ".ds-readout { display: inline-block; font-family: var(--font-instrument); font-size: 36px; font-weight: 400; font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap; color: var(--lamp-red); background: var(--panel-inset); box-shadow: inset 0 0 0 1px var(--line); border-radius: 2px; padding: 12px 16px 16px; } @media (prefers-reduced-motion: no-preference) { .ds-readout { text-shadow: 0 0 18px color-mix(in srgb, var(--lamp-red) 26%, transparent); } }"
+    },
+    {
+      "name": "Flight-Log Row",
+      "kind": "custom",
+      "refersTo": "log-entry",
+      "description": "The archive's unit: a hairline-ruled row on the ground itself (a log sheet, not cards) with the run time flush right in tabular numerals - the log's spine. Row DELETE is a two-step plate: the first press arms CONFIRM DELETE in the destruct red (caution spoken through the polite region), the second press performs; Escape or a 5s lapse reverts to DELETE, one confirm live at a time.",
+      "html": "<div class=\"ds-log-entry\"><div class=\"ds-entry-top\"><h3 class=\"ds-entry-title\">Untitled session</h3><p class=\"ds-entry-run\">5:00</p></div><p class=\"ds-entry-meta\">2026-08-28 21:04Z · STANDARD · 412 words</p><p class=\"ds-entry-excerpt\">Keep typing. The clock does not wait.</p></div>",
+      "css": ".ds-log-entry { display: grid; gap: 8px; padding: 16px 8px; border-top: 1px solid var(--line); transition: background-color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-log-entry:hover { background: color-mix(in srgb, var(--bone) 4%, transparent); } .ds-entry-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 12px 16px; } .ds-entry-title { margin: 0; font-family: var(--font-prose); font-size: 18px; font-weight: 600; line-height: 1.65; color: var(--bone); overflow-wrap: anywhere; } .ds-entry-run { margin: 0; justify-self: end; font-family: var(--font-numeric); font-size: 19px; font-weight: 400; font-variant-numeric: tabular-nums; color: var(--bone); white-space: nowrap; } .ds-entry-meta { margin: 0; font-family: var(--font-numeric); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--bone-dim); white-space: nowrap; } .ds-entry-excerpt { margin: 0; max-width: 70ch; font-family: var(--font-prose); font-size: 18px; line-height: 1.65; color: var(--bone-dim); overflow-wrap: anywhere; }"
+    },
+    {
+      "name": "Caution Panel",
+      "kind": "card",
+      "refersTo": "caution-panel",
+      "description": "The one raised hold/decision panel, reserved for the multi-entry clear decision (and the reduced-motion caution placard): amber hairline down the leading edge while the field stays achromatic, amber placard title, bone-dim body. The single row's caution is spoken, not painted.",
+      "html": "<div class=\"ds-caution\"><h3 class=\"ds-caution-title\">CLEAR THE FLIGHT LOG?</h3><p class=\"ds-caution-body\">Every survived session in this browser will be deleted. There is no recovery.</p></div>",
+      "css": ".ds-caution { display: grid; gap: 12px; justify-items: start; background: var(--panel-raised); border-left: 1px solid var(--lamp-amber); border-radius: 2px; padding: 16px; max-width: 70ch; } .ds-caution-title { margin: 0; font-family: var(--font-placard); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lamp-amber); } .ds-caution-body { margin: 0; font-family: var(--font-prose); font-size: 18px; line-height: 1.65; color: var(--bone-dim); }"
+    },
+    {
+      "name": "Setup Placard (switch plate)",
+      "kind": "custom",
+      "refersTo": "placard",
+      "description": "The setup console's radio placards (duration presets, CUSTOM, GENTLE/STANDARD/BRUTAL with printed FADE/LOSS limits): a raised switch plate whose native radio covers it as an invisible hit target. Selected = pressed in: the plate sinks to its recessed bed and the reading lights to full bone; focus shows on the placard as the 2px focus-green band (--focus-width). Achromatic by commitment - selection is lightness and inversion, never a lamp hue.",
+      "html": "<label class=\"ds-placard\"><input type=\"radio\" class=\"ds-placard-radio\" name=\"ds-demo\" checked><span class=\"ds-placard-face\"><span class=\"ds-placard-name\">STANDARD</span><span class=\"ds-placard-limits\"><span>FADE 5s</span><span>LOSS 10s</span></span></span></label>",
+      "css": ".ds-placard { position: relative; display: inline-flex; align-items: center; justify-content: center; min-width: 5.5rem; background: var(--panel-raised); box-shadow: inset 0 0 0 1px var(--line); border-radius: 2px; padding: 12px 16px; cursor: pointer; transition: background-color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-placard-radio { position: absolute; inset: 0; margin: 0; appearance: none; opacity: 0; cursor: pointer; } .ds-placard-face { display: grid; justify-items: center; gap: 4px; pointer-events: none; } .ds-placard-name { font-family: var(--font-placard); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone-dim); transition: color 180ms cubic-bezier(0.16,1,0.3,1); } .ds-placard-limits { display: grid; gap: 4px; } .ds-placard-limits span { font-family: var(--font-placard); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone-dim); white-space: nowrap; } .ds-placard:has(.ds-placard-radio:checked) { background: var(--panel-inset); } .ds-placard:has(.ds-placard-radio:checked) .ds-placard-name { color: var(--bone); } .ds-placard:has(.ds-placard-radio:focus-visible) { outline: 2px solid var(--focus-color); outline-offset: 2px; }"
+    },
+    {
+      "name": "Guarded ARM Station (MASTER ARM)",
+      "kind": "custom",
+      "refersTo": "setup-arm",
+      "description": "The room's one primary action, low and isolated at the bottom of the setup console's remaining space: the energized ARM plate under a physical cover. One deliberate motion, two physical steps - LIFT COVER (hinges at its top edge, vanishing past edge-on over the committed --dur-arm gesture token, 260ms damped), then ARM. While closed the cover owns the tab order; Escape re-covers and returns focus to the cover; the router's deliberate focus on ARM - arriving via the deleted board's RECONFIGURE or the archive's NEW SESSION - lifts the cover by itself.",
+      "html": "<div class=\"ds-setup-arm\" data-open=\"\"><p class=\"ds-setup-arm-legend\">MASTER ARM</p><div class=\"ds-arm-socket\"><button class=\"ds-setup-arm-trigger\">ARM</button><button class=\"ds-arm-cover\">LIFT COVER</button></div><p class=\"ds-setup-arm-note\">NO PAUSE - NO RECOVERY</p></div>",
+      "css": ".ds-setup-arm { display: grid; justify-items: center; gap: 12px; background: var(--panel-raised); box-shadow: inset 0 0 0 1px var(--line); border-radius: 4px; padding: 16px 24px 20px; perspective: 900px; } .ds-setup-arm-legend, .ds-setup-arm-note { margin: 0; font-family: var(--font-placard); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone-dim); } .ds-arm-socket { position: relative; display: grid; } .ds-setup-arm-trigger { appearance: none; border: 1px solid var(--bone); background: var(--bone); color: var(--ground); font-family: var(--font-placard); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; padding: 12px 28px; cursor: pointer; } .ds-arm-cover { position: absolute; inset: 0; display: grid; place-items: center; appearance: none; border: 1px solid var(--line-strong); background: var(--panel-inset); color: var(--bone-dim); font-family: var(--font-placard); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; cursor: pointer; transform-origin: 50% 0%; backface-visibility: hidden; transition: transform var(--dur-arm) var(--ease-damped), visibility 0s linear 0s; } .ds-setup-arm[data-open] .ds-arm-cover { transform: rotateX(-100deg); visibility: hidden; transition: transform var(--dur-arm) var(--ease-damped), visibility 0s linear var(--dur-arm); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Countdown Room",
+    "overview": "One console through five mission phases — setup, write, deleted, wind-down, archive — where the split-flap clock presides and the draft is telemetry that dies when the signal is lost. Every screen is the same console at a different mission phase, not a separate page. The world is analog-physical and damped: engraved placard caps, tabular avionics numerals, recessed wells, hairline bezels, panel grain. Roughly 90% of any surface is achromatic — charcoal ground, bone readouts — and the only hue in the room is the range-safety lamp triad, locked to state semantics. Depth comes from hairlines and overlap; soft shadows do not exist anywhere in the system.\n\nThe room refuses two things by commitment: the serene writing-app canvas with its reassuring toolbar (the direction contract's explicit refusal), and the glassy dashboard / neon terminal reading of mission control. Pressure is carried by real instruments, not by drama: text pales under an amber hairline band while a flap board ticks; the destruct annunciator latches hard; re-arm is one motion straight into the next session on the last-used calibration. Motion is damped and mechanical (cubic-bezier(0.16, 1, 0.3, 1) family), gated as a capability layer — under prefers-reduced-motion the room swaps instruments (static amber placard + numeric countdown) rather than going dark, and lamp colors keep switching because they are state, not motion.",
+    "keyCharacteristics": [
+      "Fixed console-charcoal ground that never repaints; threat rides as overlays on top of it",
+      "Bone luminous readouts on ~90% achromatic surfaces; three locked lamp hues only",
+      "Michroma engraved placard caps; B612 Mono tabular numerals for every live number; Countdown Room Prose (Source Sans 3, OFL-renamed) for all long-form text; DSEG14 Classic reserved for the SIGNAL LOST board alone",
+      "Hairline (1px) bezel discipline, zero-blur inset panel edges, no soft shadows",
+      "Machined corners (2px plates, 4px large plates); lamp domes are the only full rounds",
+      "Split-flap countdown board presides top-center; per-digit fixed wells give zero layout shift",
+      "Damped mechanical motion as a capability layer; hard lamp switching in both motion modes",
+      "Fixed low-opacity grain overlay kills flat-black banding and survives reduced motion"
+    ],
+    "rules": [
+      {
+        "name": "The Locked Lamp Rule",
+        "body": "Green = nominal/alive, amber = fading/hold, red = destruct/signal lost. Lamps mean state and never decorate; no hue exists outside these roles (focus green is the one sanctioned extension). Rarity is the point — amber and red each appear on a screen only while their state is true.",
+        "section": "colors"
+      },
+      {
+        "name": "The Fixed Ground Rule",
+        "body": "The charcoal ground never repaints. Threat, caution, and texture ride as overlays and edge bands; a screen never paints a full-bleed replacement background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Unlit Lamp Rule",
+        "body": "An unlit lamp is not removed — it stays on the console as dark tinted glass. State absent is itself information.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Instruments Rule",
+        "body": "Placard caps for labels, avionics numerals for numbers, prose for long-form text — and never crosswise. Placard text is tracked uppercase and short (≤ ~24 chars); long-form text exists only in the prose face.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Every live number is set tabular (`tnum`, slashed-zero off). Numbers must never shift the layout while counting — B612 Mono's digits are equal-advance by construction and the flap wells are fixed 1ch × 1em regardless.",
+        "section": "typography"
+      },
+      {
+        "name": "The Reserved Instrument Rule",
+        "body": "DSEG14 Classic renders the SIGNAL LOST readout and nothing else — never the animated flap board, never labels. Segment-LCD and split-flap are different instruments; mixing them breaks the metaphor. (In reduced motion the numeric inactivity countdown is B612 Mono, not DSEG14 — the reservation holds in both motion modes.)",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Soft-Shadows Rule",
+        "body": "No blurred drop shadows exist in this system and none may be added. Depth = lightness step + hairline edge + overlap; glow is a motion-gated halo on lit instruments, never elevation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep ~90% of every surface achromatic; hue appears only as lamp state, the caution band, focus green, or the reserved red of destruction.",
+      "Do set every live number in B612 Mono with tabular figures, in a fixed-width context when it counts (flap wells are 1ch × 1em) — zero layout shift while counting is an invariant.",
+      "Do hold prose to the measure (70ch) at 18–19px / 1.65 leading on the dark ground.",
+      "Do keep the leading-edge band at a constant width across transparent → green → amber — the committed `--focus-width` (2px) token that every focus ring also draws — so the prose measure never moves.",
+      "Do switch lamps hard (180ms damped, or `steps(1, end)` in authored latches); keep unlit lamps visible as tinted glass.",
+      "Do gate flap rotation, board flip, lamp latch, glows, and halos behind `prefers-reduced-motion: no-preference` (flaps additionally behind `preserve-3d`); under reduce, swap instruments — static per-digit swap, static amber placard + B612 numeric countdown — while lamp colors keep switching.",
+      "Do let the engine apply the threat fade's opacity per frame from wall-clock output; never leave a CSS opacity transition running unwatched.",
+      "Do align run times and session stats flush against the right margin in tabular numerals — the log's spine."
+    ],
+    "donts": [
+      "Don't add blurred or soft drop shadows, gradient surfaces, or glassy overlays; the panel edge is the only sanctioned box-shadow and it is a zero-blur hairline.",
+      "Don't repaint the ground, introduce a new background hue, or use DSEG14 anywhere except the SIGNAL LOST readout.",
+      "Don't use lamp hues decoratively (buttons, accents, illustrations) or introduce any hue beyond the locked triad + focus green.",
+      "Don't use bone-faint for readable text (annotations and disabled states only); quiet-but-readable is bone-dim.",
+      "Don't round corners beyond the machined 2px/4px steps — full rounds are lamp domes, exclusively.",
+      "Don't animate opacity as a state transition, fade a lamp's meaning, or add live stats to the write phase (numbers beyond the countdown exist only post-session).",
+      "Don't set long-form text in Michroma or DSEG14, or lowercase placard labels; don't exceed ~24 characters on a placard."
+    ]
+  }
+}

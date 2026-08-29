@@ -1,0 +1,432 @@
+/* ============================================================================
+   WRITE SURFACE — the presiding flap board and the dying text (T9).
+   The product's focal moment lives here: the countdown presides top-center
+   at board scale while the draft column owns the viewport's middle; at fade
+   start the amber lamp lights and a hairline amber band rides the column's
+   leading edge while the text pales — opacity applied per frame from the
+   engine's wall-clock output, never a CSS transition left to run unwatched.
+   Consumes tokens.css only; the ground never repaints (no background on the
+   section — panels rise only where the console has furniture).
+   ============================================================================ */
+
+/* The hidden attribute must always win over display rules below. */
+.write [hidden] {
+  display: none !important;
+}
+
+.write {
+  max-width: 76rem;
+  margin-inline: auto;
+  min-height: 100vh;
+  padding: var(--sp-6) var(--sp-4) var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+/* Visually hidden (SR text + the T12 fade-announcement hook). */
+.write .vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------------------------
+   THE BOARD — one raised plate, recessed digit wells, the T– prefix engraved
+   alongside. B612 Mono 700: equal-advance digits, so 1ch slots are exactly
+   the digit advance and the board cannot shift while counting.
+---------------------------------------------------------------------------- */
+
+.write-board {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-4);
+}
+
+.flap-board {
+  font-family: var(--font-numeric);
+  font-size: var(--size-numeric-board);
+  font-weight: 700;
+  font-variant-numeric: var(--numeric-variant);
+  font-feature-settings: var(--numeric-feature);
+  color: var(--bone);
+  background: var(--panel-raised);
+  box-shadow: var(--panel-edge);
+  border-radius: var(--radius-2);
+  padding: var(--sp-3) var(--sp-4);
+  line-height: 1;
+}
+
+.flap-glyphs {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  /* The one perspective for every flap rotation (R2: consumer-supplied, on
+     the slots' parent). Damped: foreshortens without theatrical depth. */
+  perspective: 1000px;
+}
+
+.flap-prefix {
+  font-size: calc(var(--size-numeric-board) * 0.32);
+  font-weight: 400;
+  color: var(--bone-dim);
+  margin-right: var(--sp-1);
+  white-space: nowrap;
+}
+
+.flap-colon {
+  line-height: 1;
+}
+
+/* One digit = one fixed-width, fixed-height recessed well. The width/height
+   are the zero-layout-shift guarantee (independent of which glyph shows):
+   1ch is B612 Mono's shared digit advance, 1em the shared figure box. */
+.flap-slot {
+  position: relative;
+  width: 1ch;
+  height: 1em;
+  background: var(--panel-inset);
+  box-shadow: inset 0 0 0 var(--hairline) var(--line);
+  border-radius: var(--radius-1);
+  transform-style: preserve-3d;
+}
+
+/* The hinge seam across the well's middle — the physical split line. Sits a
+   hair in front of the leaves (z 0.15px vs their 0.1px) like the frame bar. */
+.flap-slot::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  margin-top: -0.5px;
+  background: var(--ground);
+  transform: translateZ(0.15px);
+}
+
+/* Half-height clipping windows: each shows its share of a full-slot glyph.
+   Glyph boxes are slot-sized (200% of the half) and center the figure, so
+   the top half shows rows 0–50% and the bottom half rows 50–100%. */
+.flap-half,
+.flap-leaf {
+  position: absolute;
+  inset-inline: 0;
+  height: 50%;
+  overflow: hidden;
+}
+
+.flap-half-top,
+.flap-leaf-top {
+  top: 0;
+}
+
+.flap-half-bottom,
+.flap-leaf-bottom {
+  bottom: 0;
+}
+
+.flap-glyph {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  line-height: 1;
+  text-align: center;
+  display: block;
+}
+
+.flap-half-top .flap-glyph,
+.flap-leaf-top .flap-glyph {
+  top: 0;
+}
+
+.flap-half-bottom .flap-glyph,
+.flap-leaf-bottom .flap-glyph {
+  bottom: 0;
+}
+
+/* -- the lamps + status strip ---------------------------------------------------
+   Range-safety lamps with engraved legends; the status placard carries the
+   phase in words. Lamp color is state, not motion — it switches in both
+   motion modes (the glow alone is the capability layer). */
+
+.write-statusline {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3) var(--sp-5);
+}
+
+.lamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.lamp-dome {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-lamp);
+  transition: background-color var(--dur-state) var(--ease-damped);
+}
+
+/* Unlit lamps stay present — dark tinted glass, information, not absence. */
+[data-lamp='live'] .lamp-dome {
+  background: var(--lamp-green-dim);
+}
+
+[data-lamp='fade'] .lamp-dome {
+  background: var(--lamp-amber-dim);
+}
+
+[data-lamp='live'][data-lit] .lamp-dome {
+  background: var(--lamp-green);
+}
+
+[data-lamp='fade'][data-lit] .lamp-dome {
+  background: var(--lamp-amber);
+}
+
+.lamp-name {
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+.write-status {
+  font-family: var(--font-placard);
+  font-size: var(--size-placard);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+  transition: color var(--dur-state) var(--ease-damped);
+}
+
+.write[data-threat='fading'] .write-status {
+  color: var(--lamp-amber);
+}
+
+/* ----------------------------------------------------------------------------
+   THE TEXT COLUMN — the draft itself. Generous prose (Source Sans 3 at the
+   19px dark-ground size, 1.65 leading, 70ch measure), a large bone caret, no
+   box chrome: the column's leading hairline is the only edge, and that edge
+   is the threat's home — transparent while armed (green only under the
+   writer's focused hands), amber hairline at fade start while the field
+   itself stays achromatic (cloud-edge raised line).
+---------------------------------------------------------------------------- */
+
+.write-column {
+  width: 100%;
+  max-width: var(--prose-measure);
+  margin-inline: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* --focus-width, not the 1px hairline token: this edge doubles as the
+     editor's focus indicator (the textarea itself has outline:none — the
+     caret + this band), and WCAG 2.4.11 wants a ≥2px-thick indicator band —
+     the same committed token every plate ring draws (refinement R4). The
+     width is CONSTANT across all states (transparent → green → amber), so
+     nothing shifts; the 1px over the hairline is given back in padding to
+     keep the prose measure identical. */
+  border-left: var(--focus-width) solid transparent;
+  padding-left: calc(var(--sp-4) - 1px);
+  transition: border-color var(--dur-state) var(--ease-damped);
+}
+
+/* Focus is the console's one sanctioned non-lamp green: the live circuit
+   under the writer's hands (with the caret, the editor's focus indicator). */
+.write-column:focus-within {
+  border-left-color: var(--focus-color);
+}
+
+/* The threat outranks focus on the same hairline: amber while fading. */
+.write[data-threat='fading'] .write-column {
+  border-left-color: var(--lamp-amber);
+}
+
+.write-editor {
+  flex: 1;
+  min-height: 45vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  resize: none;
+  outline: none;
+  color: var(--bone);
+  caret-color: var(--bone);
+  font-family: var(--font-prose);
+  font-size: var(--prose-size-lg);
+  font-weight: var(--weight-prose);
+  line-height: var(--prose-leading);
+  tab-size: 4;
+  overflow-wrap: break-word;
+  /* The browser's scrollbar is a console surface: bone on the room. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--bone-dim) transparent;
+}
+
+.write-editor::placeholder {
+  color: var(--bone-dim);
+  opacity: 1;
+}
+
+/* ----------------------------------------------------------------------------
+   REDUCED MOTION — the static threat placard. No flap animation, no animated
+   opacity, no glow (capability layers below stay off); instead the amber
+   placard + numeric inactivity countdown, shown ONLY under reduce while
+   fading. The lamps and the hairline band keep working (state, not motion).
+---------------------------------------------------------------------------- */
+
+.write-caution {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .write[data-threat='fading'] .write-caution {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--sp-2) var(--sp-5);
+    width: 100%;
+    max-width: calc(var(--prose-measure) + var(--sp-4));
+    margin-inline: auto;
+    background: var(--panel-raised);
+    border-left: var(--hairline) solid var(--lamp-amber);
+    border-radius: var(--radius-1);
+    padding: var(--sp-3) var(--sp-4);
+  }
+
+  .write-caution-title {
+    margin: 0;
+    font-family: var(--font-placard);
+    font-size: var(--size-placard);
+    letter-spacing: var(--placard-tracking);
+    text-transform: var(--placard-transform);
+    color: var(--lamp-amber);
+  }
+
+  .write-caution-count {
+    margin: 0 0 0 auto;
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--sp-2);
+  }
+
+  .write-caution-label {
+    font-family: var(--font-placard);
+    font-size: var(--size-placard-sm);
+    letter-spacing: var(--placard-tracking);
+    text-transform: var(--placard-transform);
+    color: var(--bone-dim);
+  }
+
+  .write-caution-number {
+    font-family: var(--font-numeric);
+    font-size: var(--size-numeric-lg);
+    font-variant-numeric: var(--numeric-variant);
+    font-feature-settings: var(--numeric-feature);
+    color: var(--lamp-amber);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   CAPABILITY LAYERS — the flap motion and the glow. The flap needs BOTH
+   no-preference motion AND preserve-3d (R2's @supports fallback = the static
+   per-digit swap the JS already performs); the glow needs no-preference only.
+   Leaves are display:none unless both gates hold — the static halves carry
+   the digits in every other mode. (Grain is T8's static room texture: it
+   carries no motion and survives reduced motion by T8's own commitment.)
+---------------------------------------------------------------------------- */
+
+.flap-leaf {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Luminous readouts in a dim room: a faint bone halo on the board's
+     figures and a lit lamp's dome glow — subtle, and entirely absent under
+     reduced motion. */
+  .flap-glyph,
+  .flap-prefix,
+  .flap-colon {
+    text-shadow: 0 0 18px color-mix(in srgb, var(--bone) 18%, transparent);
+  }
+
+  [data-lamp='live'][data-lit] .lamp-dome {
+    box-shadow: 0 0 10px 2px color-mix(in srgb, var(--lamp-green) 50%, transparent);
+  }
+
+  [data-lamp='fade'][data-lit] .lamp-dome {
+    box-shadow: 0 0 10px 2px color-mix(in srgb, var(--lamp-amber) 50%, transparent);
+  }
+
+  @supports (transform-style: preserve-3d) {
+    .flap-leaf {
+      display: block;
+      backface-visibility: hidden;
+      will-change: transform;
+      transition: transform var(--dur-flap) var(--ease-flap);
+    }
+
+    /* Hinges at the digit's midline; translateZ(0.1px) is daformat's Safari
+       backface-visibility fix. Rest state: top leaf closed, bottom leaf
+       edge-on. */
+    .flap-leaf-top {
+      transform-origin: 50% 100%;
+      transform: rotateX(0deg) translateZ(0.1px);
+    }
+
+    .flap-leaf-bottom {
+      transform-origin: 50% 0%;
+      transform: rotateX(90deg) translateZ(0.1px);
+    }
+
+    /* The flip (JS adds data-flipping at tick, removes it at completion):
+       the old top falls away while the new bottom rises into place.
+       Transform-only — compositor-side, no layout, no paint. */
+    .flap-slot[data-flipping] .flap-leaf-top {
+      transform: rotateX(-90deg) translateZ(0.1px);
+    }
+
+    .flap-slot[data-flipping] .flap-leaf-bottom {
+      transform: rotateX(0deg) translateZ(0.1px);
+    }
+
+    /* After a flip the leaves snap home behind transition:none (JS adds
+       data-reset until the slot's next flip re-arms the transition). */
+    .flap-slot[data-reset] .flap-leaf {
+      transition: none;
+    }
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Phones — the console stacks by criticality: board (already clamped by
+   --size-numeric-board), lamps, then the column, which keeps its measure
+   and its leading-edge band.
+---------------------------------------------------------------------------- */
+
+@media (max-width: 40rem) {
+  .write {
+    padding: var(--sp-5) var(--sp-3) var(--sp-6);
+    gap: var(--sp-5);
+  }
+
+  .write-column {
+    padding-left: var(--sp-3);
+  }
+}

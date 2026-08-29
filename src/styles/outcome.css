@@ -1,0 +1,381 @@
+/* ============================================================================
+   OUTCOME BOARDS — SIGNAL LOST + DOWN SAFE (T10).
+   Both ends of a session on the one console. DELETED: the console empties —
+   the destruct annunciator alone in the room, SIGNAL LOST in the reserved
+   DSEG14 instrument face (display size; B612 Mono fallback in the token
+   stack), the red LOSS lamp latching once (hard steps — lamps switch, they
+   never fade), RE-ARM focused. WIND-DOWN: the session board turns over — a
+   hard, damped rotateX side-change, not a fade cross-fade — and rests as
+   the frozen 0:00 countdown with the green SAFE lamp; the draft column
+   stays editable (no threat), and the post-session stats appear HERE ONLY:
+   live word count + the run time flush against the right margin (j-card).
+   Consumes tokens.css only; reuses the write surface's instrument classes
+   (.flap-board/.flap-slot/.write-column/.write-editor) and the shared
+   .plate controls (plates.css, refinement R4) — one console, one
+   vocabulary. Every animation in this
+   sheet lives inside `prefers-reduced-motion: no-preference`, so under
+   reduce there are no animation rules at all: both boards arrive fully
+   formed, instantly.
+   ============================================================================ */
+
+/* The hidden attribute must always win over display rules below. */
+.outcome [hidden] {
+  display: none !important;
+}
+
+.outcome {
+  max-width: 76rem;
+  margin-inline: auto;
+  min-height: 100vh;
+  padding: var(--sp-6) var(--sp-4) var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+/* Focus: the console's one sanctioned green at the committed --focus-width
+   band (the live circuit under the writer's hands; same appearance as every
+   screen's plates — the token is refinement R4's close of the T11
+   follow-up). */
+.outcome button:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------------------------------------------
+   THE BOARD WRAP — top-center, like the write surface's. Carries the one
+   perspective so a flipping board foreshortens damped, not theatrical.
+---------------------------------------------------------------------------- */
+
+.outcome-boardwrap {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-4);
+  perspective: 1200px;
+}
+
+.outcome-strip {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3) var(--sp-5);
+}
+
+.outcome-verdict {
+  font-family: var(--font-placard);
+  font-size: var(--size-placard);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+.outcome-title {
+  margin: 0;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-lg);
+  font-weight: 400;
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone);
+}
+
+/* ----------------------------------------------------------------------------
+   OUTCOME LAMPS — the two states the write surface never shows. Same dome
+   grammar as LIVE/FADE (write.css): dark tinted glass unlit, lamp color lit.
+---------------------------------------------------------------------------- */
+
+[data-lamp='loss'] .lamp-dome {
+  background: var(--lamp-red-dim);
+}
+
+[data-lamp='safe'] .lamp-dome {
+  background: var(--lamp-green-dim);
+}
+
+[data-lamp='loss'][data-lit] .lamp-dome {
+  background: var(--lamp-red);
+}
+
+[data-lamp='safe'][data-lit] .lamp-dome {
+  background: var(--lamp-green);
+}
+
+/* ----------------------------------------------------------------------------
+   DELETED — the destruct annunciator, alone in the emptied room.
+---------------------------------------------------------------------------- */
+
+/* The console empties: the board presides centered with generous room around
+   it — no telemetry, no stats, only the verdict, honest copy, and the two
+   plates (R2: RE-ARM primary carrying the recalled calibration; RECONFIGURE
+   secondary, the setup console's door). */
+.outcome-deleted {
+  justify-content: center;
+}
+
+.outcome-instrument {
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: center;
+  background: var(--panel-raised);
+  box-shadow: var(--panel-edge);
+  border-radius: var(--radius-2);
+  padding: var(--sp-5) var(--sp-6) var(--sp-6);
+}
+
+/* The SIGNAL LOST readout: the reserved instrument face (R4) at display
+   size — DSEG14's shared 0.816em advance makes "SIGNAL LOST" ~8.4em wide,
+   so the cap keeps it on one line from phones up. The stack's B612 Mono
+   fallback stays legible if DSEG14 is missing (--font-instrument, T8). */
+.outcome-readout {
+  margin: 0;
+  font-family: var(--font-instrument);
+  font-size: min(calc(var(--size-numeric-board) * 0.82), 9vw);
+  font-weight: 400;
+  font-variant-numeric: var(--numeric-variant);
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--lamp-red);
+  background: var(--panel-inset);
+  box-shadow: inset 0 0 0 var(--hairline) var(--line);
+  border-radius: var(--radius-1);
+  /* Segment faces sit high in their em box; the bed's lower lip evens it. */
+  padding: var(--sp-3) var(--sp-4) var(--sp-4);
+}
+
+.outcome-copy {
+  margin: 0;
+  max-width: var(--prose-measure);
+  margin-inline: auto;
+  text-align: center;
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  line-height: var(--prose-leading);
+  color: var(--bone-dim);
+}
+
+.outcome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+}
+
+/* The RE-ARM plate's static safe measure (R2 follow-up, closed in R4). The
+   plate prints the recalled calibration, worst case 27 placard chars
+   ("RE-ARM — 120 MIN · STANDARD" — the code-controlled maximums: 3-digit
+   minutes, longest preset name). Computed from the type scale, not rendered:
+
+   · Michroma placard caps at --size-placard-sm (10px), 0.12em tracking after
+     every glyph → 27 × 0.12 = 3.24em of tracking alone.
+   · Glyph advances (Microgramma-lineage extended face, reasoned per class:
+     caps ≈ 0.33–1.0em avg ≈ 0.75, digits ≈ 0.7, space ≈ 0.26, — ≈ 1.0,
+     · ≈ 0.28) sum ≈ 17.2em for this string → ≈ 20.4em with tracking
+     → ≈ 204px of text at the token size.
+   · Bed budget at the 320px floor, from the sheets' own ≤40rem blocks:
+     .outcome sides 2×12 + .outcome-instrument sides 2×12 + plate padding
+     (phone-tightened) 2×8 + plate borders 2×1 = 66px → 254px of text room.
+   → The token size fits the floor with ≈20% slack. The min() then makes the
+   fit structural rather than incidental: its divisor (22em = the computed
+   width + ~8% pad) hard-caps the label's rendered width at (100vw − 66px),
+   so face-metric drift or sub-floor viewports trade type size for fit
+   instead of breaking the one-line placard. No floor endpoint is declared —
+   the ramp's 10px token is the only size the plate ever claims, and beneath
+   the supported 320px floor the shrinking size is the viewport's arithmetic
+   (never an off-ramp literal); because nothing here sets white-space:nowrap,
+   the structural backstop remains — the plate can wrap before it can ever
+   overflow. Scoped to the deleted board alone: it is the only plate whose
+   text length is bounded by this math. */
+.outcome-deleted .plate-primary {
+  font-size: min(var(--size-placard-sm), calc((100vw - 66px) / 22));
+}
+
+/* ----------------------------------------------------------------------------
+   WIND-DOWN — the board's second side. The whole face (frozen clock + strip)
+   is one rigid board that turns over once: damped rotateX, no opacity — a
+   hard side-change. The frozen clock itself is the write board's static
+   rendering (.flap-board/.flap-slot from write.css): same recessed wells,
+   same hinge seams, stopped at 0:00.
+---------------------------------------------------------------------------- */
+
+.outcome-windown .outcome-board-face {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-4);
+  transform-origin: 50% 50%;
+}
+
+.outcome-stats {
+  margin: 0;
+  width: 100%;
+  max-width: calc(var(--prose-measure) + var(--sp-4));
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-2) var(--sp-5);
+}
+
+.outcome-stat-label {
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+.outcome-stat-value {
+  font-family: var(--font-numeric);
+  font-size: var(--size-numeric);
+  font-variant-numeric: var(--numeric-variant);
+  font-feature-settings: var(--numeric-feature);
+  color: var(--bone);
+  white-space: nowrap;
+}
+
+/* The running time rides the right margin against the column's edge (j-card)
+   and leads in size, as it does on the flight log. */
+.outcome-stat-run {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+
+.outcome-stat-run .outcome-stat-value {
+  font-size: var(--size-numeric-lg);
+}
+
+.outcome-foot {
+  width: 100%;
+  max-width: calc(var(--prose-measure) + var(--sp-4));
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.outcome-note {
+  margin: 0;
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  line-height: var(--prose-leading);
+  color: var(--bone-dim);
+}
+
+/* DONE — the room's one primary action — lands at the right margin, where
+   the run time lives: the final action of the session sits under its number. */
+.outcome-windown .outcome-actions {
+  justify-content: flex-start;
+}
+
+.outcome-windown .outcome-actions .plate-primary {
+  margin-left: auto;
+}
+
+/* ----------------------------------------------------------------------------
+   MOTION — one authored moment per board, both inside the no-preference
+   gate so reduced motion runs NO animation rule from this sheet at all.
+   DELETED: the LOSS lamp latches — hard on/off steps, three flashes, then
+   steady (a real annunciator latching a fault; lamps switch, never fade).
+   WIND-DOWN: the tape flip — one damped rotateX side-change, no opacity.
+   The lit-lamp glows and the readout's red halo are capability layers,
+   gated here alongside (colors themselves stay in both modes: lamps are
+   state, not motion).
+---------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-lamp='loss'][data-lit] .lamp-dome {
+    animation: loss-latch 1.4s steps(1, end) 1;
+  }
+
+  .outcome-windown .outcome-board-face {
+    animation: board-flip var(--dur-board) var(--ease-damped) 1;
+  }
+
+  /* Luminous readouts in a dim room (the write board's halo grammar). */
+  .outcome-readout {
+    text-shadow: 0 0 18px color-mix(in srgb, var(--lamp-red) 26%, transparent);
+  }
+
+  [data-lamp='loss'][data-lit] .lamp-dome {
+    box-shadow: 0 0 10px 2px color-mix(in srgb, var(--lamp-red) 50%, transparent);
+  }
+
+  [data-lamp='safe'][data-lit] .lamp-dome {
+    box-shadow: 0 0 10px 2px color-mix(in srgb, var(--lamp-green) 50%, transparent);
+  }
+}
+
+/* Hard annunciator switching: lit → dark → lit, three times, then latched.
+   steps(1, end) holds each value until the next boundary — switches, not
+   fades. The steady lit state is the base style, so the animation ends
+   where the board already lives. */
+@keyframes loss-latch {
+  0% {
+    background-color: var(--lamp-red);
+  }
+
+  10% {
+    background-color: var(--lamp-red-dim);
+  }
+
+  22% {
+    background-color: var(--lamp-red);
+  }
+
+  34% {
+    background-color: var(--lamp-red-dim);
+  }
+
+  46% {
+    background-color: var(--lamp-red);
+  }
+
+  58% {
+    background-color: var(--lamp-red-dim);
+  }
+
+  70% {
+    background-color: var(--lamp-red);
+  }
+
+  100% {
+    background-color: var(--lamp-red);
+  }
+}
+
+/* The tape turning over: edge-on (the board's thickness) to rest. One
+   rotation, transform only. */
+@keyframes board-flip {
+  from {
+    transform: rotateX(-88deg);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Phones — the console stacks by criticality. The readout cap already holds
+   SIGNAL LOST on one line at 9vw; the stats keep their margins, the foot's
+   DONE keeps the right edge.
+---------------------------------------------------------------------------- */
+
+@media (max-width: 40rem) {
+  .outcome {
+    padding: var(--sp-5) var(--sp-3) var(--sp-6);
+    gap: var(--sp-5);
+  }
+
+  .outcome-instrument {
+    padding: var(--sp-4) var(--sp-3) var(--sp-5);
+  }
+
+  .outcome-stat-run .outcome-stat-value {
+    font-size: var(--size-numeric);
+  }
+}

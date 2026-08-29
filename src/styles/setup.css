@@ -1,0 +1,376 @@
+/* ============================================================================
+   SETUP CONSOLE — the room's front door (refinement R1 / critique F1).
+   The FIRST VIEWPORT of the direction contract, built on the committed T7
+   hooks: the split-flap duration board presides top-center at display scale;
+   the duration presets and the GENTLE/STANDARD/BRUTAL placards print their
+   FADE/LOSS limits; the guarded ARM sits low, isolated in space — the room's
+   one primary action under a physical cover (LIFT COVER → ARM, the gesture
+   --dur-arm was minted for). VIEW ARCHIVE is the same .plate vocabulary as
+   every other screen.
+
+   Built ONLY from the committed instruments: the flap board is write.css's
+   (.flap-board/.flap-slot — the same classes, not a fork; this sheet adds no
+   board styles at all), the plate controls are the shared plates.css
+   vocabulary (.plate — one console, one button vocabulary, refinement R4),
+   and every value is a tokens.css token.
+   The ground never repaints; no soft shadows; hue appears only as the
+   caution-band amber of validation and the focus green. Reduced motion needs
+   no block of its own here: every transition duration is a --dur-* token
+   (they collapse), the JS gates the board's flips, and the cover's lift is
+   the token-driven exception that vanishes at 0.01ms.
+   ============================================================================ */
+
+.setup {
+  max-width: 48rem;
+  margin-inline: auto;
+  min-height: 100vh;
+  padding: var(--sp-6) var(--sp-4) var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-6);
+  text-align: center;
+}
+
+/* -- identity: the console's nameplate + the honest one-line brief ------------- */
+
+.setup-title {
+  margin: 0;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-lg);
+  font-weight: 400;
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone);
+}
+
+.setup-intro {
+  margin: 0;
+  max-width: 54ch;
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  line-height: var(--prose-leading);
+  color: var(--bone-dim);
+}
+
+/* -- the presiding board ---------------------------------------------------------
+   .flap-board/.flap-glyphs/.flap-prefix/.flap-slot come from write.css (the
+   write and wind-down boards render with the same classes); this sheet adds
+   only the engraved legend beneath the instrument. */
+
+.setup-board {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-3);
+}
+
+.setup-board-label {
+  margin: 0;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+/* -- placard groups ---------------------------------------------------------------
+   Fieldset/legend name the radio groups (T7 semantics); the legend is the
+   engraved group legend, the placards below it are physical switch plates. */
+
+.setup fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.setup legend {
+  padding: 0;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+.placards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+}
+
+/* -- the placard (committed hooks: placard / placard-name / placard-limits) -------
+   A raised switch plate; the native radio covers it as an invisible hit
+   target (appearance:none renders nothing, opacity keeps its outline inert —
+   focus shows on the placard itself via :has). Selected = the switch pressed
+   in: the plate sinks to its recessed bed and the reading lights to bone. */
+
+.setup .placard {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 5.5rem;
+  background: var(--panel-raised);
+  box-shadow: var(--panel-edge);
+  border-radius: var(--radius-1);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-state) var(--ease-damped),
+    box-shadow var(--dur-state) var(--ease-damped);
+}
+
+.placard-radio {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  appearance: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.placard-face {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-1);
+  pointer-events: none; /* every click belongs to the covering radio */
+}
+
+.placard-name {
+  font-family: var(--font-placard);
+  font-size: var(--size-placard);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+  transition: color var(--dur-state) var(--ease-damped);
+}
+
+/* Duration values are numerals — B612 Mono, tabular (the Tabular Rule). */
+.placard-value {
+  font-family: var(--font-numeric);
+  font-size: var(--size-numeric-lg);
+  line-height: 1;
+  font-variant-numeric: var(--numeric-variant);
+  font-feature-settings: var(--numeric-feature);
+  color: var(--bone-dim);
+  transition: color var(--dur-state) var(--ease-damped);
+}
+
+.placard-unit {
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+/* The printed limits — the T2 preset table engraved on the plate, two lines. */
+.placard-limits {
+  display: grid;
+  gap: var(--sp-1);
+}
+
+.placard-limits span {
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+  white-space: nowrap;
+}
+
+/* Selected: pressed in — recessed bed, lit reading (the plate itself stays
+   achromatic; selection is lightness + inversion, never a lamp hue). */
+.setup .placard:has(.placard-radio:checked) {
+  background: var(--panel-inset);
+}
+
+.setup .placard:has(.placard-radio:checked) .placard-name,
+.setup .placard:has(.placard-radio:checked) .placard-value {
+  color: var(--bone);
+}
+
+@media (hover: hover) {
+  .setup .placard:not(:has(.placard-radio:checked)):hover {
+    box-shadow: inset 0 0 0 var(--hairline) var(--line-strong);
+  }
+
+  .setup .placard:not(:has(.placard-radio:checked)):hover .placard-name,
+  .setup .placard:not(:has(.placard-radio:checked)):hover .placard-value {
+    color: var(--bone);
+  }
+}
+
+/* Focus rides the placard, not the invisible radio (the radio's own outline
+   would be lost to opacity anyway) — the console's focus-green band at the
+   committed --focus-width. */
+.setup .placard:has(.placard-radio:focus-visible) {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* -- the CUSTOM placard's numeral well ------------------------------------------
+   The one field on the console: a recessed well in B612 Mono. It rides above
+   the covering radio (pointer-events re-enabled) so the writer can type
+   without the radio eating the click; the caution state is an amber hairline
+   edge while the field itself stays achromatic (the caution band). */
+
+.placard-custom-row {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+
+.setup-custom-input {
+  position: relative; /* above the covering radio */
+  z-index: 1;
+  pointer-events: auto;
+  width: 6ch;
+  padding: var(--sp-1);
+  appearance: textfield;
+  border: none;
+  background: var(--panel-inset);
+  box-shadow: inset 0 0 0 var(--hairline) var(--line);
+  border-radius: var(--radius-1);
+  color: var(--bone);
+  caret-color: var(--bone);
+  font-family: var(--font-numeric);
+  font-size: var(--size-numeric);
+  font-variant-numeric: var(--numeric-variant);
+  font-feature-settings: var(--numeric-feature);
+  text-align: center;
+}
+
+/* The number field is an instrument, not OS furniture: no spinners. */
+.setup-custom-input::-webkit-outer-spin-button,
+.setup-custom-input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.setup-custom-input::placeholder {
+  color: var(--bone-dim);
+  opacity: 1;
+}
+
+.setup-custom-input:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+.setup-custom-input[aria-invalid='true'] {
+  box-shadow: inset 0 0 0 var(--hairline) color-mix(in srgb, var(--lamp-amber) 45%, transparent);
+}
+
+/* -- validation line ---------------------------------------------------------------
+   Amber is the hold state (the caution band); the words name the exact fix,
+   so the signal is never color alone. One line is reserved so the ARM
+   station never shifts when validation speaks. */
+
+.setup-error {
+  margin: 0;
+  min-height: calc(var(--size-placard) * 1.7);
+  font-family: var(--font-placard);
+  font-size: var(--size-placard);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--lamp-amber);
+}
+
+/* -- the guarded ARM ----------------------------------------------------------------
+   Low and isolated (margin-top:auto rides it to the bottom of whatever
+   viewport remains): MASTER ARM under a physical cover. One deliberate
+   motion, two physical steps — LIFT COVER, then ARM. The cover hinges at its
+   top edge under the station's perspective and vanishes past edge-on
+   (backface hidden), out of the tab order (visibility) and pointer-dead;
+   --dur-arm is the committed gesture token this lift was minted for. Under
+   reduced motion the token collapses and the same state change is instant. */
+
+.setup-arm {
+  margin-top: auto;
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-3);
+  background: var(--panel-raised);
+  box-shadow: var(--panel-edge);
+  border-radius: var(--radius-2);
+  padding: var(--sp-4) var(--sp-6) var(--sp-5);
+  perspective: 900px;
+}
+
+.setup-arm-legend,
+.setup-arm-note {
+  margin: 0;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+.arm-socket {
+  position: relative;
+  display: grid;
+}
+
+/* ARM itself: the one energized plate, sized like the action it is. */
+.setup-arm-trigger {
+  font-size: var(--size-placard-lg);
+  padding: var(--sp-3) var(--sp-7);
+}
+
+.arm-cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--panel-inset);
+  border-color: var(--line-strong);
+  color: var(--bone-dim);
+  transform-origin: 50% 0%;
+  backface-visibility: hidden;
+  transition:
+    transform var(--dur-arm) var(--ease-damped),
+    color var(--dur-state) var(--ease-damped),
+    visibility 0s linear 0s;
+}
+
+.setup-arm[data-open] .arm-cover {
+  transform: rotateX(-100deg);
+  visibility: hidden;
+  transition:
+    transform var(--dur-arm) var(--ease-damped),
+    visibility 0s linear var(--dur-arm);
+}
+
+/* -- focus --------------------------------------------------------------------------- */
+
+.setup button:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* -- phones: the console stacks by criticality ----------------------------------------
+   The board is already viewport-clamped; placards tighten and may wrap — the
+   duration row becomes two rows before the difficulty placards ever crowd. */
+
+@media (max-width: 40rem) {
+  .setup {
+    padding: var(--sp-5) var(--sp-3) var(--sp-6);
+    gap: var(--sp-5);
+  }
+
+  .setup .placard {
+    min-width: 4.5rem;
+    padding: var(--sp-2) var(--sp-3);
+  }
+
+  .setup-arm {
+    padding: var(--sp-3) var(--sp-4) var(--sp-4);
+  }
+}

@@ -1,0 +1,376 @@
+/* ============================================================================
+   ARCHIVE — the flight-log binder (T11).
+   The post-flight side of the one console: a nameplate strip, then the log —
+   hairline-ruled rows on the ground itself (scan), recessed wells for reading
+   a full draft (read), one raised plate for the clear decision (decide).
+   Run times ride the right margin in B612 Mono (j-card); timestamps are
+   Zulu; prose is Source Sans 3. Consumes tokens.css and the shared plate
+   component (plates.css, refinement R4) — no new design values beyond
+   color-mix derivatives of tokens. The ground never repaints.
+   ============================================================================ */
+
+/* The hidden attribute must always win over display rules below. */
+.archive [hidden] {
+  display: none !important;
+}
+
+.archive {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: var(--sp-7) var(--sp-4) var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+/* -- nameplate strip ---------------------------------------------------------
+   An engraved plate across the top of the binder: raised one step above the
+   ground, bezel line only (no soft shadow), the screen's one placard voice. */
+
+.archive-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3) var(--sp-5);
+  background: var(--panel-raised);
+  box-shadow: var(--panel-edge);
+  border-radius: var(--radius-2);
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.archive-head-text {
+  display: grid;
+  gap: var(--sp-1);
+}
+
+.archive-title {
+  margin: 0;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-lg);
+  font-weight: 400;
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone);
+}
+
+.archive-note {
+  margin: 0;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+.archive-count {
+  margin: 0 0 0 auto;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+/* -- controls --------------------------------------------------------------
+   Every action on this screen is the same small plate — the shared
+   .plate/.plate-primary/.plate-destruct vocabulary every screen spends,
+   defined once in plates.css (refinement R4; it was born here and moved when
+   the outcome + setup screens started consuming it cross-sheet). The archive
+   contributes only its focus ring: the console's one sanctioned green, drawn
+   at the committed --focus-width (WCAG 2.4.11's ≥2px band, tokenized). */
+
+.archive button:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* -- the log --------------------------------------------------------------------
+   Rows engraved on the ground with hairline rules — a log sheet, not cards.
+   The column strip labels the run-time margin; rows hover one step brighter
+   for scanning without becoming panels. */
+
+.log-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-4);
+  padding: var(--sp-2) var(--sp-2) var(--sp-1);
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+.log-columns .col-run {
+  justify-self: end;
+}
+
+.log-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.log-entry {
+  display: grid;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-2);
+  border-top: var(--hairline) solid var(--line);
+  transition: background-color var(--dur-state) var(--ease-damped);
+}
+
+.log-list .log-entry:last-child {
+  border-bottom: var(--hairline) solid var(--line);
+}
+
+.log-entry:hover {
+  background: color-mix(in srgb, var(--bone) 4%, transparent);
+}
+
+.entry-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--sp-3) var(--sp-4);
+}
+
+.entry-title {
+  margin: 0;
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  font-weight: var(--weight-prose-strong);
+  line-height: var(--prose-leading);
+  color: var(--bone);
+  overflow-wrap: anywhere;
+}
+
+/* The running time — flush against the right margin, tabular, the log's
+   spine of numbers (B612 Mono; equal-advance digits by construction). */
+.entry-run {
+  margin: 0;
+  justify-self: end;
+  font-family: var(--font-numeric);
+  font-size: var(--size-numeric-lg);
+  font-weight: 400;
+  font-variant-numeric: var(--numeric-variant);
+  font-feature-settings: var(--numeric-feature);
+  color: var(--bone);
+  white-space: nowrap;
+}
+
+.entry-meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-3);
+  align-items: baseline;
+}
+
+.entry-stamp,
+.entry-words {
+  font-family: var(--font-numeric);
+  font-size: var(--size-numeric-sm);
+  font-variant-numeric: var(--numeric-variant);
+  font-feature-settings: var(--numeric-feature);
+  color: var(--bone-dim);
+  white-space: nowrap;
+}
+
+.entry-preset {
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-sm);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+.entry-excerpt {
+  margin: 0;
+  max-width: var(--prose-measure);
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  line-height: var(--prose-leading);
+  color: var(--bone-dim);
+  overflow-wrap: anywhere;
+}
+
+.entry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  padding-top: var(--sp-1);
+}
+
+/* -- the full draft, opened by VIEW ------------------------------------------
+   A recessed well: inset ground, hairline lip, the draft itself in prose.
+   Collapsed state is visibility-gated (out of the accessibility tree) while
+   the damped 0fr→1fr grid reveal animates the open — the screen's one motion,
+   driven entirely by the committed duration/easing tokens. */
+
+.entry-full {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--dur-board) var(--ease-damped),
+    visibility 0s linear var(--dur-board);
+}
+
+.entry-full[data-open] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows var(--dur-board) var(--ease-damped),
+    visibility 0s linear 0s;
+}
+
+.entry-full-well {
+  min-height: 0;
+  overflow: hidden;
+  background: var(--panel-inset);
+  box-shadow: var(--panel-edge);
+  border-radius: var(--radius-1);
+}
+
+.entry-full-text {
+  margin: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: var(--sp-4);
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  line-height: var(--prose-leading);
+  color: var(--bone);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  /* The browser's scrollbar is a console surface: bone on the inset bed. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--bone-dim) var(--panel-inset);
+}
+
+/* -- the clear decision ---------------------------------------------------------
+   The one raised plate with authority: an amber hairline caution band down
+   the leading edge while the field stays achromatic (cloud-edge raised line),
+   amber title for the hold, and the destruct lamp reserved for the one
+   action that performs it. Sits low, isolated in space, like every guarded
+   gesture in this room. */
+
+.log-foot {
+  margin-top: var(--sp-6);
+}
+
+.confirm {
+  margin-top: var(--sp-6);
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: start;
+  background: var(--panel-raised);
+  border-left: var(--hairline) solid var(--lamp-amber);
+  border-radius: var(--radius-1);
+  padding: var(--sp-4);
+  max-width: var(--prose-measure);
+  animation: confirm-settle var(--dur-board) var(--ease-damped);
+}
+
+@keyframes confirm-settle {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.confirm-title {
+  margin: 0;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--lamp-amber);
+}
+
+.confirm-body {
+  margin: 0;
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  line-height: var(--prose-leading);
+  color: var(--bone-dim);
+}
+
+.confirm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+/* -- honest empty state ---------------------------------------------------------- */
+
+.empty {
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: start;
+  padding: var(--sp-7) var(--sp-2);
+  border-top: var(--hairline) solid var(--line);
+  border-bottom: var(--hairline) solid var(--line);
+}
+
+.empty-title {
+  margin: 0;
+  font-family: var(--font-placard);
+  font-size: var(--size-placard-lg);
+  letter-spacing: var(--placard-tracking);
+  text-transform: var(--placard-transform);
+  color: var(--bone-dim);
+}
+
+.empty-body {
+  margin: 0;
+  max-width: var(--prose-measure);
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  line-height: var(--prose-leading);
+  color: var(--bone-dim);
+}
+
+/* -- visually hidden (live region) ------------------------------------------------ */
+
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* -- phones: the log collapses to spine-style rows --------------------------------
+   The run time keeps the right margin at numeric size, the meta line wraps
+   under the title. (Plates tighten via their own shared block in plates.css.) */
+
+@media (max-width: 40rem) {
+  .archive {
+    padding: var(--sp-5) var(--sp-3) var(--sp-7);
+    gap: var(--sp-4);
+  }
+
+  .archive-count {
+    margin-left: 0;
+  }
+
+  .log-entry {
+    padding: var(--sp-4) var(--sp-1);
+  }
+
+  .entry-top {
+    gap: var(--sp-2) var(--sp-3);
+  }
+
+  .entry-run {
+    font-size: var(--size-numeric);
+  }
+}

@@ -1,0 +1,248 @@
+/* ============================================================================
+   TOKENS — The Countdown Room (direction contract seed da64ca22)
+   Design authority: docs/ultron/design-brief.md §3; faces per R4-typefaces.md.
+   One console, five mission phases. Charcoal ground, bone readouts, locked
+   range-safety lamps, engraved placard caps, tabular avionics numerals,
+   quiet grotesk prose. Hairlines, machined corners, grain — no soft shadows.
+
+   T8 owns this file and index.html's contract comment only. Screens (T9–T11)
+   consume these tokens; they do not redefine them. Values here are the
+   committed world — changing one is a direction change, not a tweak.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   FONTS — self-hosted, OFL 1.1, no runtime network fetch (R4-locked)
+   Sizes (actual, on disk): Michroma 400  11.7 KB · B612 Mono 400 12.8 KB ·
+   B612 Mono 700 11.6 KB · Source Sans 3 VF (latin+ext-A subset) 59.6 KB ·
+   DSEG14 Classic 400 (unmodified foundry woff2) 5.7 KB → 101.4 KB total.
+   Each family directory carries its OFL license file; the build copies them
+   to dist/font-licenses/. Machine faces are subset to the ASCII + typographic
+   punctuation they render (labels/readouts are code-controlled); the prose
+   face adds Latin ext-A so accented drafts never fall back mid-word.
+---------------------------------------------------------------------------- */
+@font-face {
+  /* Placard caps — Michroma, Vernon Adams 2011, OFL 1.1 (no RFN).
+     Microgramma-lineage extended caps: the engraved aerospace panel idiom. */
+  font-family: 'Michroma';
+  src: url('../assets/fonts/michroma/Michroma-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  /* Avionics numerals — B612 Mono, The B612 Project Authors 2012 (Airbus /
+     ENAC cockpit research), OFL 1.1 (no RFN). All digits equal-advance
+     (verified 1300/2000 upm): live numbers never shift the layout. */
+  font-family: 'B612 Mono';
+  src: url('../assets/fonts/b612-mono/B612Mono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'B612 Mono';
+  src: url('../assets/fonts/b612-mono/B612Mono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  /* Prose — glyphs are Source Sans 3 variable (wght 200–900), Adobe,
+     OFL 1.1. Latin + Latin-ext-A subset, renamed "Countdown Room Prose" in
+     its internal name records per OFL §1 (RFN "Source"); outlines untouched.
+     Digits are tabular by default — the prose face backs up the numeral role. */
+  font-family: 'Countdown Room Prose';
+  src: url('../assets/fonts/source-sans-3/SourceSans3-VF.woff2') format('woff2');
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  /* Instrument readout — DSEG14 Classic, keshikan 2017, OFL 1.1 (RFN "DSEG";
+     file shipped unmodified, so the RFN is respected). CONDITION-GATED:
+     reduced-motion numeric countdown and the SIGNAL LOST board ONLY.
+     Never the animated flap board — segment-LCD and split-flap are
+     different instruments; mixing them breaks the metaphor (R4). */
+  font-family: 'DSEG14 Classic';
+  src: url('../assets/fonts/dseg14/DSEG14Classic-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* --------------------------------------------------------------------------
+     COLOR — ~90% of surface is achromatic: ground, panels, bone text.
+     Lamps are semantic and RESERVED (brief §3, locked): they mean state,
+     they never decorate. No hue exists outside these roles.
+  -------------------------------------------------------------------------- */
+
+  /* The room. Fixed charcoal that never repaints; threat rides as overlay. */
+  --ground: #14161a;
+
+  /* Bezel plate one step above ground (raised panels, boards, controls). */
+  --panel-raised: #1a1d23;
+
+  /* Recessed wells: flap slots, lamp housings, inset readout beds. */
+  --panel-inset: #0e1013;
+
+  /* Bone — the luminous readout color. Primary text on ground and panels. */
+  --bone: #e8e4d8;
+
+  /* Bone-dim — secondary text (labels, meta, excerpts). ≥4.5:1 on ground. */
+  --bone-dim: color-mix(in srgb, var(--bone) 58%, var(--ground));
+
+  /* Bone-faint — annotations and disabled affordances only. NOT body text
+     (~3:1); if a screen needs readable-but-quiet, it uses bone-dim. */
+  --bone-faint: color-mix(in srgb, var(--bone) 34%, var(--ground));
+
+  /* Range-safety lamps. Roles are absolute:
+     green  = nominal / alive / armed-and-typing (circuit closed, signal up)
+     amber  = fading / hold (the caution band — warning before loss)
+     red    = destruct / signal lost (terminal, once, never decorative) */
+  --lamp-green: #3fe06f;
+  --lamp-amber: #ffb000;
+  --lamp-red: #ff4a3d;
+
+  /* Unlit lamps — the same lamps off: dark tinted glass, still present.
+     An unlit lamp is information (state absent), never removed. */
+  --lamp-green-dim: color-mix(in srgb, var(--lamp-green) 26%, var(--panel-inset));
+  --lamp-amber-dim: color-mix(in srgb, var(--lamp-amber) 26%, var(--panel-inset));
+  --lamp-red-dim: color-mix(in srgb, var(--lamp-red) 26%, var(--panel-inset));
+
+  /* Hairlines — bezel lines over any surface. Alpha-based: adapts to
+     ground/panel without a second palette. Line weight is --hairline. */
+  --line: color-mix(in srgb, var(--bone) 16%, transparent);
+  --line-strong: color-mix(in srgb, var(--bone) 32%, transparent);
+
+  /* Keyboard focus. The console's one sanctioned green that is not a state
+     lamp is focus — it means "live circuit under your hands". The width is
+     the committed focus band (DESIGN.md: 2px): every plate control's
+     :focus-visible ring draws it, and the editor's constant-width leading
+     band is set to the same token — it doubles as the editor's WCAG 2.4.11
+     focus indicator, so one value owns every focus indicator in the room
+     (constant across states; nothing shifts when it flips). */
+  --focus-color: var(--lamp-green);
+  --focus-width: 2px;
+
+  /* --------------------------------------------------------------------------
+     TYPE — three roles, three faces (R4). Placard caps are tracked
+     uppercase and short (≤ ~24 chars); numerals are always tabular; prose
+     is the only place long-form text is ever set.
+  -------------------------------------------------------------------------- */
+
+  /* Placard caps — engraved panel labels, section names, switch legends. */
+  --font-placard: 'Michroma', system-ui, sans-serif;
+  --placard-transform: uppercase;
+  --placard-tracking: 0.12em;
+  --size-placard-sm: 10px;
+  --size-placard: 11px;
+  --size-placard-lg: 13px;
+
+  /* Avionics numerals — every live number: countdown, timestamps, limits,
+     counts. tabular-nums is belt-and-braces: B612 Mono digits are equal-
+     advance by construction (verified in the binaries). */
+  --font-numeric: 'B612 Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --numeric-variant: tabular-nums;
+  --numeric-feature: 'tnum' 1, 'zero' 0;
+  --size-numeric-sm: 12px;
+  --size-numeric: 14px;
+  --size-numeric-lg: 19px;
+  --size-numeric-board: clamp(2.75rem, 9vw, 5.5rem);
+
+  /* Quiet prose — the draft itself. 18px floor on dark ground (R4);
+     0.478 x-height wants the dark-ground bump. Measure 65–75ch. */
+  --font-prose: 'Countdown Room Prose', 'Source Sans 3', system-ui, sans-serif;
+  --prose-size: 18px;
+  --prose-size-lg: 19px;
+  --prose-leading: 1.65;
+  --prose-measure: 70ch;
+  --weight-prose: 400;
+  --weight-prose-strong: 600;
+
+  /* Instrument readout (DSEG14) — condition-gated, see @font-face note. */
+  --font-instrument: 'DSEG14 Classic', 'B612 Mono', monospace;
+
+  /* --------------------------------------------------------------------------
+     SPACE — 4px base. Tight groups inside an instrument; generous
+     separation between instruments. More space above a heading than below.
+  -------------------------------------------------------------------------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  /* --------------------------------------------------------------------------
+     HAIRLINE + CORNER — machined, not molded. Corners barely break the
+     raster: 2px on plates, 4px only where a plate is large. Lamp domes are
+     the sole full rounds.
+  -------------------------------------------------------------------------- */
+  --hairline: 1px;
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-lamp: 999px;
+
+  /* --------------------------------------------------------------------------
+     ELEVATION — no soft shadows, anywhere. Depth is hairlines + overlap:
+     a panel rises by its bezel line and what it covers. --panel-edge is the
+     one sanctioned box-shadow: a zero-blur inset hairline (layout-neutral,
+     used where a border would double the line). Declare elevation once.
+  -------------------------------------------------------------------------- */
+  --panel-edge: inset 0 0 0 var(--hairline) var(--line);
+  --z-panel: 10;    /* plates and console furniture        */
+  --z-board: 30;    /* the presiding flap board            */
+  --z-band: 40;     /* the threat overlay band             */
+  --z-grain: 50;    /* room grain, above panels, below nothing visible */
+  --z-announce: 60; /* transient alert surfaces            */
+
+  /* --------------------------------------------------------------------------
+     MOTION — damped and mechanical, never bouncy. The threat fade is NOT
+     here by design: opacity is computed per frame from wall-clock by the
+     engine (T3) and applied directly; no CSS transition is left to run
+     unwatched. These tokens govern flaps, lamps, boards, and the arm
+     gesture only. Exponential ease-out from an already-visible default.
+  -------------------------------------------------------------------------- */
+  --ease-damped: cubic-bezier(0.16, 1, 0.3, 1);      /* state changes, boards */
+  --ease-flap: cubic-bezier(0.22, 0.9, 0.18, 1);     /* the digit flip        */
+  --dur-flap: 300ms;   /* one split-flap digit turning                    */
+  --dur-board: 480ms;  /* whole-board swap (e.g. SIGNAL LOST) settling    */
+  --dur-state: 180ms;  /* lamp / state indications                        */
+  --dur-arm: 260ms;    /* the one guarded arm gesture                     */
+
+  /* --------------------------------------------------------------------------
+     GRAIN — panel grain to kill flat-black banding (brief §3). CSS-only,
+     self-contained SVG data-URI noise tile; no external asset, no network.
+     Applied as a fixed low-opacity overlay (see main.css body::after).
+  -------------------------------------------------------------------------- */
+  --grain-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-strength: 0.045;
+
+  /* --------------------------------------------------------------------------
+     CAPABILITY LAYER — reduced motion swaps instruments, it does not
+     disable the room: no flap, no animated fade; a static amber banner and
+     a numeric countdown instead (T9/T10). --motion-level is readable from
+     JS (getComputedStyle) for that path; durations collapse so any
+     transitioned surface holds still. Lamp colors are state, not motion —
+     they stay.
+  -------------------------------------------------------------------------- */
+  --motion-level: full;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-level: reduced;
+    --dur-flap: 0.01ms;
+    --dur-board: 0.01ms;
+    --dur-state: 0.01ms;
+    --dur-arm: 0.01ms;
+  }
+}

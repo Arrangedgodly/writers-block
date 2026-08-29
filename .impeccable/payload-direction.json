@@ -1,0 +1,120 @@
+{
+  "title": "Choose the visual world for The Disappearing Draft",
+  "question": "The roll assigned The Countdown Room. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Countdown Room",
+      "kicker": "THE ROLL",
+      "lineage": "mission-control countdown boards, range safety, split-flap departure boards",
+      "thesis": "The session is a launch under range safety: a huge flip-digit countdown presides, and stillness is a hold that becomes a destruct order.",
+      "palette": ["#14161a", "#e8e4d8", "#ffb000", "#ff3b30"],
+      "materials": ["split-flap digits", "engraved placards", "caution lamps", "hairline panel seams"],
+      "viewport": "A console: giant flip-digit T–10:00, three placard switches (GENTLE / STANDARD / BRUTAL with their FADE/LOSS limits printed), one guarded ARM control.",
+      "risk": "Slides toward glassy neon dashboard if the flap-and-placard physics lose their analog damping.",
+      "raised": [
+        { "from": "challenger-six-pack", "raise": "Amber caution lamp at fade-start, red only at destruction — and all motion is damped and mechanical, never a digital snap." },
+        { "from": "challenger-j-card", "raise": "Running time right-aligned hard against the margin; the session and its wind-down are two hard sides of one board, flipped like a tape." },
+        { "from": "challenger-cloud-edge", "raise": "Warning color confined to a hairline band at the text column's edge while the field itself stays achromatic." },
+        { "from": "challenger-cape", "raise": "Arming the session is one deliberate guarded gesture — a switch you flip or a pin you pull — never a click." },
+        { "from": "challenger-arcade", "raise": "Glow and flap motion are capability layers, off under reduced-motion; amber and red are reserved absolutely, everything else is luminance." },
+        { "from": "challenger-orienteering", "raise": "The console's ground system never repaints; threat state rides above it as one overlay color." }
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Dry Ribbon",
+      "kicker": "IMPECCABLE'S PICK",
+      "lineage": "typewriter ribbon, correction tape, strike-overs",
+      "thesis": "The draft is typed on a ribbon running dry: neglect it and the ink pales; wait too long and the page is pulled from the platen for good.",
+      "palette": ["#efe7d3", "#1c1a17", "#b3261e"],
+      "materials": ["typewriter slab face", "ribbon spool", "correction tape", "strike-overs"],
+      "viewport": "A page locked in the platen, spool visible at the top edge; duration as margin stops, difficulty as ribbon settings, RETURN to arm.",
+      "risk": "The writer's totem most runs in this category reach for; its distinction rides entirely on executing the ribbon-fade literally."
+    },
+    {
+      "id": "challenger-six-pack",
+      "label": "Instrument Night",
+      "verdict": "competitive",
+      "lineage": "night-flight instrument six-pack",
+      "thesis": "Write on instruments alone through cloud: the page outside the glass is ink, and only your needles and lamps keep the draft flying.",
+      "palette": ["#0c0e10", "#dfe6ea", "#5df08d", "#ffb000", "#ff3b30"],
+      "materials": ["round dials", "damped needles", "placard caps", "lamp jewels"],
+      "viewport": "One central inactivity gauge beside a clock dial, prose streaming beneath as the chart; needles sag before alarms sound.",
+      "case": "Fuses cleanly: amber-before-red lamp hierarchy maps exactly onto fade→delete, and desk-scale night intimacy matches the writer's scene; loses narrowly because its six-gauge constellation is structurally blocked by the time-only HUD.",
+      "risk": "A clock-as-dial reads less authoritative than a flap countdown for duration; the green needle adds a third signal color to learn.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack.webp"
+    },
+    {
+      "id": "challenger-j-card",
+      "label": "Side A",
+      "verdict": "competitive",
+      "lineage": "hand-lettered cassette mixtape j-cards",
+      "thesis": "The session is a cassette recording: the tape runs while you press on, and when you stop, the erase head crosses the tape from the top, wiping as it goes.",
+      "palette": ["#f7f4ec", "#1d3f8f", "#8a8578", "#d21f26"],
+      "materials": ["ruled inlay stock", "hand-ruled block caps", "cassette window", "brand stripe"],
+      "viewport": "The folded inlay card: SIDE A ruled lines with running times right-aligned, duration as tape length (C-45/C-60), difficulty as the brand stripe, REC ● to arm.",
+      "case": "Fuses strongly: record-over-erase is native permanence, running times are native countdowns, and the writer's vernacular resonance is the highest on the table; loses on clarity because the gradual erase-sweep is invented physics and the handwritten world mismatches a keyboard product.",
+      "risk": "Ballpoint-on-white reads stationery-gentle when the product needs lethal; light-mode softness under a night-desk scene.",
+      "hero": "https://impeccable.style/worlds/cards/vernacular-ephemera-cassette-j-card-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/vernacular-ephemera-cassette-j-card.webp"
+    },
+    {
+      "id": "challenger-cloud-edge",
+      "label": "Spectral Fringe",
+      "verdict": "declined",
+      "lineage": "iridescent cloud edges",
+      "palette": ["#f4f4f2", "#4a5258", "#9fd8c0", "#e8b7c8", "#b49ad8"],
+      "materials": ["achromatic field", "hairline spectral fringe"],
+      "case": "Fuses poorly: dissolving vapor is gentle where the product is lethal, and the weather-observer world is not the writers'.",
+      "kept": "The hairline edge-band cue: warning color at the boundary, never flooding the field.",
+      "hero": "https://impeccable.style/worlds/cards/clouds-storms-auroras-iridescent-cloud-edge-hero.webp"
+    },
+    {
+      "id": "challenger-cape",
+      "label": "Drawcord Session",
+      "verdict": "declined",
+      "lineage": "transforming silk capes",
+      "palette": ["#111113", "#d9b04c", "#3a3d42"],
+      "materials": ["matte silk ground", "gold drawcord", "channel stitching"],
+      "case": "Fuses poorly: drape and silhouette carry no native clock and no deletion threat.",
+      "kept": "The one-gesture arm ritual: a session begun by a single deliberate pull, not a click.",
+      "hero": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-drawcord-transforming-cape-hero.webp"
+    },
+    {
+      "id": "challenger-arcade",
+      "label": "Phosphor Grid",
+      "verdict": "declined",
+      "lineage": "CRT arcade cabinets",
+      "palette": ["#0a0a0f", "#f2f0e4", "#ffb000", "#ff3b30"],
+      "materials": ["fat pixels", "scanlines", "phosphor bloom"],
+      "case": "Fuses poorly: a 240-line pixel grid fights paragraph legibility, and the gamer's world is not the writer's.",
+      "kept": "Capability-layer motion with an absolute two-color caution law: effects toggle off cleanly, warning colors are never spent twice.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-crt-arcade-pixel-glow-hero.webp"
+    },
+    {
+      "id": "challenger-orienteering",
+      "label": "Course Overlay",
+      "verdict": "declined",
+      "lineage": "orienteering maps and legends",
+      "palette": ["#f6f3e8", "#7a5c3a", "#2f6db3", "#7b3fa0"],
+      "materials": ["contour ground", "purple course layer", "control codes"],
+      "case": "Fuses poorly: the world has no native inactivity threat, and its dense color language fights the minimal HUD.",
+      "kept": "Fixed ground, one reserved overlay: session state rides above the terrain and never repaints it.",
+      "hero": "https://impeccable.style/worlds/cards/notation-diagram-systems-orienteering-map-hero.webp"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code" },
+  "canon": true,
+  "canonCard": {
+    "label": "Quiet Room",
+    "thesis": "The calm focus-writing canvas this category ships, played impeccably straight.",
+    "palette": ["#faf8f3", "#2a2723", "#6b7f6e"],
+    "materials": ["centered column", "soft fade", "system face"],
+    "viewport": "A centered text column, a small timer above it, a gentle Begin.",
+    "risk": "Indistinguishable from every writing app by design; the deletion threat reads as a suggestion."
+  },
+  "steer": true
+}
